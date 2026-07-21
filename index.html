@@ -5,197 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electrónica Digital - SENA CMM 2026</title>
     <style>
-        body, html { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #1e1e1e; 
-            overflow: hidden; 
-        }
-        .carousel { 
-            display: flex; 
-            width: 100vw; 
-            height: 100vh; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            scroll-behavior: smooth; 
-        }
-        .carousel::-webkit-scrollbar { display: none; }
-        .slide { 
-            flex: 0 0 100vw; 
-            height: 100vh; 
-            scroll-snap-align: start; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            position: relative; 
-        }
-        
-        /* Tema Verdes Extraídos: Oscuro (#005900) y Claro (#00df00) */
-        .title-slide { 
-            background: linear-gradient(135deg, #003300 0%, #005900 100%); 
-            text-align: center; 
-            color: white;
-        }
-        .title-slide h1 { 
-            font-size: 3.8rem; 
-            margin-bottom: 0.2em; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            padding: 0 20px;
-        }
-        .title-slide h2 { 
-            font-size: 2.2rem; 
-            font-weight: 300; 
-            margin-bottom: 1em; 
-            color: #b3ffb3; /* Verde muy claro para contraste */
-        }
-        .title-slide .software-badge { 
-            font-size: 1.4rem; 
-            color: #ffffff; 
-            background: rgba(0, 223, 0, 0.15); /* Fondo verde claro con opacidad */
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 1px solid rgba(0, 223, 0, 0.4);
-            display: inline-block;
-        }
-        
-        .content-slide { 
-            background-color: #f4fbf4; /* Blanco verdoso muy sutil */
-            color: #333; 
-        }
-        .slide-header { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            padding: 15px 30px; 
-            background-color: #ffffff; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            font-size: 1.6rem; 
-            font-weight: 600; 
-            color: #005900; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-sizing: border-box; 
-            border-bottom: 3px solid #00df00; 
-        }
-        .slide-header .slide-number { 
-            font-size: 1.1rem; 
-            color: #669966; 
-            font-weight: 500; 
-        }
-        
-        /* Contenedor de Texto */
-        .text-container { 
-            margin-top: 70px; 
-            width: 85%; 
-            max-width: 1200px;
-            height: calc(100vh - 150px); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            font-size: 1.4rem;
-            line-height: 1.6;
-            color: #1a331a;
-            overflow-y: auto;
-        }
-        
-        .text-container p {
-            margin-bottom: 15px;
-        }
-        
-        .text-container ul, .text-container ol {
-            margin-top: 10px;
-            margin-bottom: 20px;
-            padding-left: 40px;
-        }
-        
-        .text-container li {
-            margin-bottom: 12px;
-        }
-        
-        .text-container strong {
-            color: #005900; 
-        }
-        
-        .text-container a {
-            color: #008000; 
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .text-container a:hover {
-            text-decoration: underline;
-            color: #005900; 
-        }
+      /* =========================================
+   VARIABLES DE TEMA (AZUL, VERDE Y VINOTINTO)
+   ========================================= */
 
-        .highlight-box {
-            background-color: #e6f9e6; 
-            border-left: 5px solid #005900; 
-            padding: 15px 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-size: 1.25rem;
-        }
+/* Tema Azul (Electrónica Analógica / LTspice) - POR DEFECTO */
+:root {
+    --bg-gradient-start: #102a43;
+    --bg-gradient-end: #243b55;
+    --title-accent: #9fb3c8;
+    --badge-bg: rgba(255,255,255,0.1);
+    --badge-border: rgba(255,255,255,0.2);
+    --slide-bg: #f4f6f9;
+    --header-text: #102a43;
+    --header-border: #334e68;
+    --header-number: #829ab1;
+    --text-main: #243b55;
+    --link-color: #334e68;
+    --highlight-bg: #e2e8f0;
+    --box-border: #d9e2ec;
+}
 
-        .activity-box {
-            background-color: #ffffff;
-            border: 1px solid #cceccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-        
-        .activity-box h3 {
-            margin-top: 0;
-            color: #005900;
-            font-size: 1.3rem;
-            border-bottom: 2px solid #e6f9e6;
-            padding-bottom: 8px;
-        }
-        
-        /* Controles */
-        .controls { 
-            position: fixed; 
-            bottom: 25px; 
-            right: 30px; 
-            display: flex; 
-            gap: 12px; 
-            z-index: 100; 
-        }
-        .btn { 
-            background: #005900; 
-            color: white; 
-            border: none; 
-            padding: 12px 24px; 
-            font-size: 1.1rem; 
-            font-weight: 500;
-            border-radius: 6px; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn:hover { 
-            background: #003300; 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .instruction { 
-            position: absolute; 
-            bottom: 30px; 
-            width: 100%; 
-            text-align: center; 
-            color: rgba(255,255,255,0.6); 
-            font-size: 1rem; 
-        }
+/* Tema Verde (Electrónica Digital) */
+body.tema-verde {
+    --bg-gradient-start: #003300;
+    --bg-gradient-end: #005900;
+    --title-accent: #b3ffb3;
+    --badge-bg: rgba(0, 223, 0, 0.15);
+    --badge-border: rgba(0, 223, 0, 0.4);
+    --slide-bg: #f4fbf4;
+    --header-text: #005900;
+    --header-border: #00df00;
+    --header-number: #669966;
+    --text-main: #1a331a;
+    --link-color: #008000;
+    --highlight-bg: #e6f9e6;
+    --box-border: #cceccc;
+}
+
+/* Tema Vinotinto (Información General / Encuadre) */
+body.tema-vinotinto {
+    --bg-gradient-start: #4a0e17;
+    --bg-gradient-end: #7a1625;
+    --title-accent: #e8d0a9;
+    --badge-bg: rgba(212, 175, 55, 0.15);
+    --badge-border: rgba(212, 175, 55, 0.4);
+    --slide-bg: #fcfbf9;
+    --header-text: #4a0e17;
+    --header-border: #d4af37;
+    --header-number: #8c7b65;
+    --text-main: #3b2a2a;
+    --link-color: #b8860b;
+    --highlight-bg: #fdf8ed;
+    --box-border: #e2e8f0;
+}
+
+/* =========================================
+   ESTILOS GENERALES Y ESTRUCTURA
+   ========================================= */
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #1e1e1e; overflow: hidden; }
+.carousel { display: flex; width: 100vw; height: 100vh; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+.carousel::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 100vw; height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+
+.title-slide { background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%); text-align: center; color: white; }
+.title-slide h1 { font-size: 3.8rem; margin-bottom: 0.2em; font-weight: 700; letter-spacing: -0.5px; padding: 0 20px;}
+.title-slide h2 { font-size: 2.2rem; font-weight: 300; margin-bottom: 1em; color: var(--title-accent); }
+.software-badge { font-size: 1.4rem; color: #ffffff; background: var(--badge-bg); padding: 10px 25px; border-radius: 50px; border: 1px solid var(--badge-border); display: inline-block; }
+
+.content-slide { background-color: var(--slide-bg); color: #333; }
+.slide-header { position: absolute; top: 0; left: 0; width: 100%; padding: 15px 30px; background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 1.6rem; font-weight: 600; color: var(--header-text); display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; border-bottom: 3px solid var(--header-border); }
+.slide-header .slide-number { font-size: 1.1rem; color: var(--header-number); font-weight: 500; }
+
+.text-container { margin-top: 70px; width: 85%; max-width: 1200px; height: calc(100vh - 150px); display: flex; flex-direction: column; justify-content: center; font-size: 1.4rem; line-height: 1.6; color: var(--text-main); overflow-y: auto; }
+.text-container p { margin-bottom: 15px; }
+.text-container ul, .text-container ol { margin-top: 10px; margin-bottom: 20px; padding-left: 40px; }
+.text-container li { margin-bottom: 12px; }
+.text-container strong { color: var(--header-text); }
+.text-container a { color: var(--link-color); text-decoration: none; font-weight: 600; }
+.text-container a:hover { text-decoration: underline; color: var(--header-text); }
+
+/* Soporte para imágenes (Para la de LTspice) */
+.image-container { margin-top: 70px; width: 90%; height: calc(100vh - 120px); display: flex; justify-content: center; align-items: center; }
+.image-container img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 8px 30px rgba(0,0,0,0.12); background: white; padding: 5px; border-radius: 4px; border: 1px solid var(--box-border); }
+
+.highlight-box { background-color: var(--highlight-bg); border-left: 5px solid var(--header-border); padding: 15px 20px; border-radius: 4px; margin-top: 20px; font-size: 1.25rem; }
+.activity-box { background-color: #ffffff; border: 1px solid var(--box-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.activity-box h3 { margin-top: 0; color: var(--header-text); font-size: 1.3rem; border-bottom: 2px solid var(--highlight-bg); padding-bottom: 8px; }
+
+.controls { position: fixed; bottom: 25px; right: 30px; display: flex; gap: 12px; z-index: 100; }
+.btn { background: var(--header-border); color: white; border: none; padding: 12px 24px; font-size: 1.1rem; font-weight: 500; border-radius: 6px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.btn:hover { background: var(--header-text); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+.instruction { position: absolute; bottom: 30px; width: 100%; text-align: center; color: rgba(255,255,255,0.6); font-size: 1rem; }
+
+/* =========================================
+   CONFIGURACIÓN PARA EXPORTAR A PDF
+   ========================================= */
+@media print {
+    @page { margin: 0; size: landscape; }
+    body, html { overflow: visible !important; height: auto !important; background: white; }
+    .carousel { display: block; overflow: visible; height: auto; }
+    .slide { height: 100vh; width: 100vw; page-break-after: always; page-break-inside: avoid; position: relative; align-items: flex-start; }
+    .text-container, .image-container { overflow: visible; height: auto; justify-content: flex-start; margin-top: 100px;}
+    .controls, .instruction, .carousel::-webkit-scrollbar { display: none !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
     </style>
 </head>
 <body>
